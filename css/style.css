@@ -1,0 +1,171 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+
+.caja{
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+
+.mod{
+    border: 1px solid black;
+    width: 200px;
+    height: 250px;
+    cursor: pointer;
+}
+
+img{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    height:125px;
+    width:125px;
+    transform: translateX(35px)
+}
+
+span{
+    display: flex;
+    flex-direction: column;
+}
+
+.zapatilla{
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 40px;
+}
+
+.precio{
+    display: flex;
+    align-items: flex-start;
+}
+
+.precio font{
+    border: 1px solid white;
+    background-color: white;
+    transition-property: span;
+    transition-duration: 0.5s;
+}
+
+.precio:hover{
+    translate: 70px;
+    transition-duration: 0.5s ;
+}
+
+.fondo{
+    background-color: rgb(230, 229, 229);
+}
+
+
+.btn{
+    margin-top: 25px;
+}
+
+
+header{
+    background-color: azure;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo{
+    padding:10px;
+    font-family: 'EB Garamond', serif;
+    font-weight: 600;
+    font-size: large;
+}
+
+.logo a{
+    color: black;
+}
+
+.nav__menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav__menu a{
+    padding-right: 15px;
+    color: black;
+    font-size: medium;
+}
+
+.nav__, .nav__input{
+    display: none;
+}
+
+#carrito{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+ul li{
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+h1{
+    font-size: large;
+    font-weight: 400;
+    border-bottom: 1px solid black;
+    padding-left: auto;
+    margin-right: auto;
+
+
+}
+
+.h3{
+    padding-top: 35px;
+}
+
+.img{
+    width: 125px;
+    height: 125px;
+}
+
+.catalogo{
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+footer{
+    background: gray;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+    align-items: center;
+}
+
+
+
+
+
+@media (max-width: 750px){
+        
+}
+
+.border{
+    border: 1px solid black;
+    width: 220px;
+    height: 260px;
+}
+
+.img{
+    width: 200px;
+    height: 200px;
+    border-bottom: 1px solid black;
+}
