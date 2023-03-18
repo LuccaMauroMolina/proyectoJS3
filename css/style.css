@@ -25,8 +25,8 @@ img{
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    height:125px;
-    width:125px;
+    height:90px;
+    width:90px;
     transform: translateX(35px)
 }
 
@@ -111,15 +111,16 @@ nav{
     display: none;
 }
 
-.carritos{
-
+table{
+    width: 100%;
 }
-
 
 #tienda{
     width: 25px;
     height: 25px;
 }
+
+
 
 /*.card{
     position: fixed;
@@ -244,6 +245,10 @@ nav{
 
 }
 
+i{
+    cursor: pointer;
+}
+
 ul li{
     list-style-type: none;
 }
@@ -302,19 +307,3 @@ footer{
 }
 
 
-
-@media (max-width: 750px){
-        
-}
-
-.border{
-    border: 1px solid black;
-    width: 220px;
-    height: 260px;
-}
-
-.img{
-    width: 200px;
-    height: 200px;
-    border-bottom: 1px solid black;
-}

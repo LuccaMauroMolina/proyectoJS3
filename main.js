@@ -1,29 +1,3 @@
-
-//1) Mostrar en el HTML de formá dinámica el stock de productos. 
-//2) Agregar productos al carrito. 
-//3) Evitar la carga de productos repetidos en el carrito. 
-//4) Mostrar el carrito en el HTML de forma dinámica. 
-//5) Eliminar productos del carrito. 
-//6) Calcular el total de la compra. 
-//7) Vaciar carrito. 
-//8) Guardar el carrito en el localStorage. 
-
-//Dos puntos importantes para el TP Final (que no hacemos hoy!!). 
-//Boton de finalizar compra!!!
-//Cambiar las cantidades desde el carrito.
-
-/*let LMM = alert("Hola que tal, que se les ofrece, tenemos toda ropa deportiva de zapatillas, pantalon y remeras");
-*/
-
-//ELIMINAR POR UNA Y SUMAR
-//USAR SWEAT O MODAL PARA EL CARRITO
-//DARLE BUEN ESTILO
-//USAR FETCH Y DEMAS
-//BOTON DE FINALIZAR
-//que se me vea la tabla
-
-
-
 class catalogo{
     constructor (id, catalogo, marca, img, precio){
         this.id = id;
@@ -45,7 +19,16 @@ const reebok = new catalogo (7, "remeras", "reebok", "img/remera--reebok.jpg", 9
 const undergroundZ = new catalogo (8, "zapatilla", "underground", "img/zapatilla--underground--hombre.jpg", 34999 );
 const undergroundR = new catalogo (9, "remeras", "underground" , "img/remera--underground.jpg", 11250 );
 
-const productos = [nikeMetcon, metcon, skeachers, adidasAFA, nike, nikeFit, reebok, undergroundZ, undergroundR];
+/*const productos = [nikeMetcon, metcon, skeachers, adidasAFA, nike, nikeFit, reebok, undergroundZ, undergroundR];
+*/
+const productos = []
+const json = "../json/productos.json";
+
+fetch(json)
+    .then(response => response.json())
+    .then(data => {
+        productos.push(data)
+    })
 
 console.log(productos)
 
@@ -60,9 +43,9 @@ const Carrito = document.getElementById("carrito")
 
 let carrito = []
 
-/*if(localStorage.getItem("carrito")){
+if(localStorage.getItem("carrito")){
     carrito = JSON.parse(localStorage.getItem("carrito"))
-}*/
+}
 
 const mostrar = () => {
     productos.forEach(catalogo => {
@@ -97,7 +80,7 @@ mostrar();
 
 const agregar = (id) => {
         const carritos = productos.find ((catalogo) => catalogo.id === id)
-        //verCarrito()
+        verCarrito()
         carrito.push(carritos);
         console.log(carritos);
 
@@ -118,64 +101,106 @@ const vistaDeCarrito = document.getElementById("verCarrito");
 
 vistaDeCarrito.addEventListener(`click`, () => {
     verCarrito()
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
 })
 
+const table = document.getElementById(`card-table`)
 
-const verCarrito = () =>{
+const verCarrito = () => {
     
-    Carrito.innerHTML = "";
+    table.innerHTML = "";
 
     carrito.forEach((catalogo) => {
-        const tarjeta = document.createElement(`div`);
-        tarjeta.innerHTML = `
-                                <div>
-                                    <img src="${catalogo.img}">
-                                    <p>${catalogo.marca}</p>
-                                    <p>${catalogo.precio}</p>
-                                    <button type"submit" id="eliminar${catalogo.id}">Eliminar</button>
-                                    <button id="finalizar${catalogo.id}">finalizar compra</button>
-                                </div>
-                            `
+        const tables = document.createElement(`table`);
+        tables.innerHTML = `
+        <table width="100%">
+        <thead>
+            <tr>
+                <th><img src="${catalogo.img}"></th>
+                <th>${catalogo.marca}</th>
+                <th>$ ${catalogo.precio}</th>
+                <th><button id='aumentar${catalogo.id}' onclick="carrito" value="aumentar">+</button></th>
+                <th><button id='disminuir${catalogo.id}' onclick="carrito" value="disminuir">-</button></th> 
+                <th><p id='contador${catalogo.id}' value="0"></p></th>
+                <th class="cantidad"><input type='text' id="cantidad" value="${catalogo.cantidad}"></th>
+                <th><i class='bx bx-x-circle' id='eliminar${catalogo.id}'></i></th>
+            </tr>
+        </thead>
+        </table>
+        <div>
+            <button id="finalizar">finalizar compra</button>
+        </div>
+                            `                
+                            const finalizar = document.getElementById("finalizar")
 
-        Carrito.appendChild(tarjeta)
 
-        const btn = document.getElementById(`eliminar${catalogo.id}`)
+    finalizar.addEventListener("click", () => {
+        Swal.fire({
+            title: "se confirmo todos los productos",
+            icon: "success"
+        })
+    })
 
-            btn.addEventListener (`click`, () => {
+    
+            table.appendChild(tables)
+
+            const aumentar = document.getElementById(`aumentar${catalogo.id}`)
+        aumentar.addEventListener("click", () => {
+            aumento(catalogo.id);
+        })
+
+        const disminuir = document.getElementById(`disminuir${catalogo.id}`)
+        disminuir.addEventListener("click", () => {
+            disminuye(catalogo.id);
+        })
+
+        const eliminar = document.getElementById(`eliminar${catalogo.id}`)
+        eliminar.addEventListener("click", () => {
             eliminar(catalogo.id);
         })
+        totalPagar();
 })
-    //calcularTotal();
-    totalPagar()
+
 }
 
+
+const aumento = (id) => {
+    const productos = carrito.find((catalogo) => catalogo.id === id);
+    productos.cantidad++;
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    verCarrito();
+}
+
+const disminuye = (id) => {
+    const productos = carrito.find((catalogo) => catalogo.id === id);
+    productos.cantidad--;
+    if (productos.cantidad === 0) {
+        eliminar(id);
+        productos.cantidad = 0;
+    } else {
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+    }
+    verCarrito();
+
+
+}
 
 const eliminar = (id) => {
-    const producto = carrito.find(catalogo => catalogo.id === id);
-    const indice = carrito.indexOf(producto);
+    const productos = carrito.find(catalogo => catalogo.id === id);
+    const indice = carrito.indexOf(productos);
     carrito.splice(indice, 1);
+    productos.cantidad = 1;
     verCarrito();
+    localStorage.setItem("carrito", JSON.stringify(carrito));
 }
-
-
-/*const eliminar = (id) => {
-    const carrito = productos.find(catalogo => catalogo.id === id)
-    const indice = productos.indexOf(carrito)
-    productos.splice(indice, 1);
-    verCarrito();
-    localStorage.setItem("carrito", JSON.stringify(carrito))
-}*/
-
-
-
 
 const pagar = document.getElementById("total")
 
 const totalPagar = () => {
     let total = 0; 
     carrito.forEach(catalogo => {
-        total += catalogo.precio * catalogo.cantidad;
-        //+= es igual a poner totalComra = totalCompra + producto.precio * producto.cantidad 
+        total += catalogo.precio * catalogo.cantidad; 
     })
     pagar.innerHTML = `$${total}`;
 }
@@ -195,64 +220,15 @@ const vaciarTodo = () => {
     localStorage.clear()
 }
 
-const btnFinalizar = document.getElementById("finalizar")
 
-const finalizar = () => {
-    btnFinalizar.addEventListener("click", () => {
-        Swal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'          
-        )
-        
-    })
-}
-const table = document.getElementById(`card-table`)
 
-const tableCard = () => {
 
-    carrito.forEach((catalogo) => {
-        
-        const tables = document.createElement(`table`)
-        tables.innerHTML = `
-        <table width="100%">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>item ${catalogo.marca}</th>
-                <th>cantidad${catalogo.cantidad}</th>
-                <th>accion${catalogo.agregar}</th>
-                <th>Total${catalogo.totalPagar}</th>
-            </tr>
-        </thead>
-        </table>
-                            `
-    
-            table.appendChild(tables)
-    
+const finalizar = document.getElementById("finalizar")
+
+
+    finalizar.addEventListener("click", () => {
+        Swal.fire({
+            title: "se confirmo todos los productos",
+            icon: "success"
         })
-    console.log(tableCard)
-}
-
-
-tableCard()
-
-/*<div>
-        <table width="100%">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>item ${catalogo.marca}</th>
-                <th>cantidad${catalogo.cantidad}</th>
-                <th>accion${catalogo.agregar}</th>
-                <th>Total${catalogo.totalPagar}</th>
-            </tr>
-        </thead>
-        <tbody id="items"></tbody>
-        <tfoot>
-            <tr id="footer">
-                <th>no hay nada en el carrito</th>
-            </tr>
-        </tfoot>
-        </div>
-    </table>*/
+    })

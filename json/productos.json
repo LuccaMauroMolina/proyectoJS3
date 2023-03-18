@@ -1,0 +1,11 @@
+[
+{"id":1,"catalogo": "zapatilla", "marca":"nike metcon", "img": "img/zapatilla--mujer--nikeMetcon.jpg","precio": 25000 },
+{"id":2,"catalogo": "zapatilla", "marca":"metcon", "img": "img/zapatilla--nike-metcon3.jpg","precio": 19999 },
+{"id":3,"catalogo": "zapatilla", "marca":"skeachers","img":"img/zapatilla--skeachers--mujer.jpg", "precio":8500 },
+{"id":4,"catalogo": "remeras", "marca":"adidas", "img":"img/remera--adidasAFA.jpg", "precio":7000 },
+{"id":5,"catalogo": "pantalon", "marca":"nike", "img":"img/pantalon--nike.jpg","precio": 14999 },
+{"id":6,"catalogo": "pantalon", "marca":"nike dri-fit", "img":"img/pantalon--nikefit.jpg","precio": 24500 },
+{"id":7,"catalogo": "remeras", "marca":"reebok", "img":"img/remera--reebok.jpg", "precio":9000 },
+{"id":8,"catalogo": "zapatilla", "marca":"underground","img": "img/zapatilla--underground--hombre.jpg","precio": 34999 },
+{"id":9,"catalogo": "remeras", "marca":"underground" , "img":"img/remera--underground.jpg", "precio": 11250 }
+]
