@@ -19,20 +19,33 @@ const reebok = new catalogo (7, "remeras", "reebok", "img/remera--reebok.jpg", 9
 const undergroundZ = new catalogo (8, "zapatilla", "underground", "img/zapatilla--underground--hombre.jpg", 34999 );
 const undergroundR = new catalogo (9, "remeras", "underground" , "img/remera--underground.jpg", 11250 );
 
-/*const productos = [nikeMetcon, metcon, skeachers, adidasAFA, nike, nikeFit, reebok, undergroundZ, undergroundR];
-*/
-const productos = []
-const json = "../json/productos.json";
+const productos = [nikeMetcon, metcon, skeachers, adidasAFA, nike, nikeFit, reebok, undergroundZ, undergroundR];
+
+//const productos = []
+/*const json = "./json/productos.json";
 
 fetch(json)
-    .then(response => response.json())
-    .then(data => {
-        productos.push(data)
-    })
+    .then(respuesta => respuesta.json())
+    .then(datos => {
+        datos.forEach( catalogo => {
+            const tarjeta = document.createElement(`div`)
+        tarjeta.innerHTML = `
+        <div class="tarjeta">
+        <div class="mod">
+        <img src="${catalogo.img}" alt="">
+        <div class="fondo">
+        <span class="tarjeta">${catalogo.marca}</span>
+        <span class="precio">${catalogo.precio}</span>
+        <button type="submit" id="btn${catalogo.id}">agregar al carrito</button>
+        </div>
+        </div>
+        </div>
+        `
+        Catalogo.appendChild(tarjeta)
 
-console.log(productos)
+        })
 
-//MOSTRAR CON DOM
+})*/
 
 
 const Catalogo = document.getElementById("catalogos");
@@ -194,6 +207,8 @@ const eliminar = (id) => {
     verCarrito();
     localStorage.setItem("carrito", JSON.stringify(carrito));
 }
+
+
 
 const pagar = document.getElementById("total")
 
